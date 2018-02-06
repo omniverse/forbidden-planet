@@ -8,9 +8,6 @@ const defaultPoints = [
   [1, 1], [1, 5], [1, 8], [3, 7], [8, 8], [8, 4], [7, 4], [8, 1], [4, 2]
 ]
 
-let step = 0
-const NUM_STEPS = 5000
-
 const FACTOR = 80
 const GAME_SIZE = 800
 
@@ -111,7 +108,7 @@ export default class Board extends Phaser.Group {
 
     const onFinish = () => {}
 
-    this.monsters.push(new RailMonster(this, startPt, endPt, NUM_STEPS, onFinish))
+    this.monsters.push(new RailMonster(this, startPt, endPt, onFinish))
   }
 
   update () {
@@ -123,13 +120,8 @@ export default class Board extends Phaser.Group {
       this.ship.prevPos()
     }
 
-    this.monsters.forEach((mo, i) => {
-      mo.update(step)
-      if (step + 1 === NUM_STEPS) {
-        step = 0
-      } else {
-        step += 1
-      }
+    this.monsters.forEach((mo) => {
+      mo.update()
     })
   }
 
