@@ -33,7 +33,7 @@ export default class Board extends Phaser.Group {
       this.placeMonster(new Phaser.Line(midStart.x, midStart.y, midEnd.x, midEnd.y))
     })
 
-    this.ship = new Ship(this, this.outerPoints, 0)
+    this.ship = new Ship(game, this, this.outerPoints, 0)
   }
 
   createShape (shrinkFactor) {
