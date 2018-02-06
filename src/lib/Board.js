@@ -108,7 +108,7 @@ export default class Board extends Phaser.Group {
 
     const onFinish = () => {}
 
-    this.monsters.push(new RailMonster(this, startPt, endPt, onFinish))
+    this.monsters.push(new RailMonster(this.game, this, startPt, endPt, onFinish))
   }
 
   update () {
