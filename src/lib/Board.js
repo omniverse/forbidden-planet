@@ -1,8 +1,9 @@
-import Colors from './colors'
+import Colors from './Colors'
 import Phaser from 'phaser'
 import RailMonster from './RailMonster'
 import Ship from './Ship'
 import helpers from './helpers'
+import BulletGroup from './BulletGroup'
 
 const defaultPoints = [
   [1, 1], [1, 5], [1, 8], [3, 7], [8, 8], [8, 4], [7, 4], [8, 1], [4, 2]
@@ -28,12 +29,20 @@ export default class Board extends Phaser.Group {
     this.monsters = []
     this.cornerlines.forEach((line, i) => {
       const next = helpers.next(this.cornerlines, i)
-      const midStart = { x: (line.start.x + next.start.x) / 2, y: (line.start.y + next.start.y) / 2}
-      const midEnd = { x: (line.end.x + next.end.x) / 2, y: (line.end.y + next.end.y) / 2}
+      const midStart = {
+        x: (line.start.x + next.start.x) / 2,
+        y: (line.start.y + next.start.y) / 2
+      }
+      const midEnd = {
+        x: (line.end.x + next.end.x) / 2,
+        y: (line.end.y + next.end.y) / 2
+      }
       this.placeMonster(new Phaser.Line(midStart.x, midStart.y, midEnd.x, midEnd.y))
     })
 
     this.ship = new Ship(game, this, this.outerPoints, 0)
+    this.bullets = new BulletGroup(game, this)
+    console.log(this.bullets)
   }
 
   createShape (shrinkFactor) {
@@ -113,6 +122,12 @@ export default class Board extends Phaser.Group {
 
   update () {
     this.angle += -0.3
+
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+      const shipXY = this.outerPoints[this.ship.pos]
+      const shipPos = { x: shipXY.x + 400, y: shipXY.y + 400 }
+      this.bullets.fireBullet(shipPos, this.monsters[this.ship.pos].sprite)
+    }
 
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
       this.ship.nextPos()
