@@ -26,23 +26,14 @@ export default class Board extends Phaser.Group {
     this.drawInner()
     this.drawConnectors()
 
+    this.centerPoint = { x: GAME_SIZE/2, y: GAME_SIZE/2}
     this.monsters = []
-    this.cornerlines.forEach((line, i) => {
-      const next = helpers.next(this.cornerlines, i)
-      const midStart = {
-        x: (line.start.x + next.start.x) / 2,
-        y: (line.start.y + next.start.y) / 2
-      }
-      const midEnd = {
-        x: (line.end.x + next.end.x) / 2,
-        y: (line.end.y + next.end.y) / 2
-      }
-      this.placeMonster(new Phaser.Line(midStart.x, midStart.y, midEnd.x, midEnd.y))
+    this.midlines.forEach((line, i) => {
+      this.placeMonster(new Phaser.Line(line.start.x, line.start.y, line.end.x, line.end.y))
     })
 
     this.ship = new Ship(game, this, this.outerPoints, 0)
     this.bullets = new BulletGroup(game, this)
-    console.log(this.bullets)
   }
 
   createShape (shrinkFactor) {
@@ -102,6 +93,19 @@ export default class Board extends Phaser.Group {
     }
 
     this.cornerlines = cornerlines
+
+    this.midlines = this.cornerlines.map((line, i) => {
+      const next = helpers.next(this.cornerlines, i)
+      const midStart = {
+        x: (line.start.x + next.start.x) / 2,
+        y: (line.start.y + next.start.y) / 2
+      }
+      const midEnd = {
+        x: (line.end.x + next.end.x) / 2,
+        y: (line.end.y + next.end.y) / 2
+      }
+      return new Phaser.Line(midStart.x, midStart.y, midEnd.x, midEnd.y)
+    })
     this._drawLines(cornerlines, Colors.LIGHT)
   }
 
@@ -124,10 +128,10 @@ export default class Board extends Phaser.Group {
     this.angle += -0.3
 
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-      const shipXY = this.outerPoints[this.ship.pos]
-      const shipPos = { x: shipXY.x + 400, y: shipXY.y + 400 }
-      this.bullets.fireBullet(shipPos, this.monsters[this.ship.pos].sprite)
+      this.bullets.fireBullet(this.ship.midPoint(), this.midlines[this.ship.pos].start)
     }
+
+    this.bullets.update();
 
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
       this.ship.nextPos()

@@ -53,6 +53,12 @@ export default class Ship {
     this.shape.lineTo(helpers.next(this.extraPoints, pos).x - pt1.x, helpers.next(this.extraPoints, pos).y - pt1.y)
     this.shape.lineTo(this.extraPoints[pos].x - pt1.x, this.extraPoints[pos].y - pt1.y)
     this.shape.lineTo(0, 0)
+
+    this.mp = midPoint
+  }
+
+  midPoint () {
+    return this.mp;
   }
 
   explode () {
