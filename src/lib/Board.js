@@ -124,6 +124,20 @@ export default class Board extends Phaser.Group {
     this.monsters.push(new RailMonster(this.game, this, startPt, endPt, onFinish))
   }
 
+  detectCollisions () {
+    this.bullets.bullets.forEach( b => {
+      if (b.isActive) {
+        this.monsters.forEach( m => {
+          if ((Math.abs(m.shape.x - b.shape.x) < 5) &&
+              (Math.abs(m.shape.y - b.shape.y) < 5)) {
+            m.explode()
+            b.deactivate()
+          }
+        })
+      }
+    })
+  }
+
   update () {
     this.angle += -0.3
 
@@ -132,6 +146,7 @@ export default class Board extends Phaser.Group {
     }
 
     this.bullets.update();
+
 
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
       this.ship.nextPos()
@@ -142,6 +157,8 @@ export default class Board extends Phaser.Group {
     this.monsters.forEach((mo) => {
       mo.update()
     })
+
+    this.detectCollisions()
   }
 
   render () {
