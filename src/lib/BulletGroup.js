@@ -29,7 +29,10 @@ export default class BulletGroup {
     for(let l = 0; l < NUM_BULLETS; l++) {
       let newBullet = bullet(game);
       this.bullets.push(newBullet)
-      board.add(newBullet.shape)
+      newBullet.deactivate = function() { // derp
+        newBullet.isActive = false
+        board.remove(newBullet.shape)
+      }
     }
 
   }
@@ -45,6 +48,7 @@ export default class BulletGroup {
     for(let l = 0; l < NUM_BULLETS; l++) {
       const bullet = this.bullets[l]
       if ( !bullet.isActive ) {
+        this.board.add(bullet.shape)
         const path = []
         const numPathSteps = center.x/8 // controls the bullet speed
         let pointsX = [fireFrom.x, fireTo.x]
@@ -59,7 +63,6 @@ export default class BulletGroup {
         bullet.step = 0;
         bullet.isActive = true
         this.fireTimer = this.game.time.now;
-        console.log(this)
         return
       }
     }
@@ -76,8 +79,7 @@ export default class BulletGroup {
           bullet.shape.x = bullet.path[bullet.step].x
           bullet.shape.y = bullet.path[bullet.step].y
         } else {
-          bullet.isActive = false
-
+          bullet.deactivate()
         }
       }
     }

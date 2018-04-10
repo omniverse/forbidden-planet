@@ -39,6 +39,7 @@ export default class RailMonster {
   }
 
   explode () {
+    this.step = 0
   }
 
   setSpeed () {
