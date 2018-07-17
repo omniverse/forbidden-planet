@@ -1,6 +1,6 @@
 # Forbidden Planet
 
-A vector-style arcade clone using Phaser. Although, most of the graphics are done using graphics drawing routines and doesn't really take advantage of Phaser with the exception of rotating the entire play area.
+A vector-style arcade clone using Phaser. Most of the graphics are done using graphics drawing routines and don't really take advantage of Phaser (sprites and physics) with the exception of rotating the entire play area.
 
 LEFT and RIGHT arrow to move the ship.
 SPACE to fire.
