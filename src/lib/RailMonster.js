@@ -9,12 +9,14 @@ export default class RailMonster {
   constructor (game, board, startPt, endPt, onFinish) {
     this.game = game
 
+    this.setSpeed()
+
     const shape = new Phaser.Graphics(this.game, 0, 0)
     shape.x = startPt.x
     shape.y = startPt.y
     this.shape = shape
 
-    this.shape.lineStyle(1, Colors.HI)
+    this.shape.lineStyle(1, Math.random() > .5 ? Colors.HI : Colors.CONTRAST)
     this.shape.moveTo(-2, -2)// moving position of graphic if you draw mulitple lines
     this.shape.lineTo(3, 3)
     this.shape.moveTo(-2, 3)// moving position of graphic if you draw mulitple lines
@@ -34,7 +36,6 @@ export default class RailMonster {
     }
     this.path = path
 
-    this.setSpeed()
     this.movementTimer = this.game.time.now
   }
 
