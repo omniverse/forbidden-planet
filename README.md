@@ -1,4 +1,13 @@
-# Phaser + ES6 + Webpack.
+# Forbidden Planet
+
+A vector-style arcade clone using Phaser. Although, most of the graphics are done using graphics drawing routines and doesn't really take advantage of Phaser with the exception of rotating the entire play area.
+
+LEFT and RIGHT arrow to move the ship.
+SPACE to fire.
+Only one level for now.
+
+
+### Phaser + ES6 + Webpack.
 #### A bootstrap project to create games with Phaser + ES6 + Webpack.
 
 ![Phaser+ES6+Webpack](https://raw.githubusercontent.com/lean/phaser-es6-webpack/master/assets/images/phaser-es6-webpack.jpg)
