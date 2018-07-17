@@ -6,11 +6,11 @@ LEFT and RIGHT arrow to move the ship.
 SPACE to fire.
 Only one level for now.
 
+![FORBIDDEN-PLANET](https://github.com/omniverse/forbidden-planet/blob/master/demo.gif)
 
 ### Phaser + ES6 + Webpack.
 #### A bootstrap project to create games with Phaser + ES6 + Webpack.
 
-![Phaser+ES6+Webpack](https://raw.githubusercontent.com/lean/phaser-es6-webpack/master/assets/images/phaser-es6-webpack.jpg)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
